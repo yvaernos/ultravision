@@ -72,6 +72,12 @@ public class Database {
 		}
 		return connection;
 	}
+
+	/*method to retrieve password and username from database.
+	It returns "usernamePassword" Map to compare the username/password provided by the user.
+	It is a way to validate the input provided.
+	 */
+
 	public Map<String, String> getUserInfo() {
 
 		usernamePassword = new HashMap<String, String>();

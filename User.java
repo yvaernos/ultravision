@@ -1,9 +1,16 @@
 package ultravision;
-
+/*
+ * Student: Leonardo Amancio
+ * Student ID: 2017401
+ * Group: A
+ * Subject: Object Oriented Constructs
+ * Lecturer: Amilcar Aponte
+ */
 import java.sql.SQLException;
 
 public class User extends  Register{
 
+    //method to register the new user in the database
     @Override
     public void getLogin(Input input, Database database) {
 

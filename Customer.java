@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 class Customer extends Register{
 
-    Session session = new Session();
     Main main = new Main();
 
     String customerUsername;
@@ -27,7 +26,8 @@ class Customer extends Register{
 
         try {
 
-            String insertValuesQuery =  "INSERT INTO customers (first_name, last_name, email, username, password, address, subscription) VALUES (?,?,?,?,?,?,?)";
+            String insertValuesQuery =  "INSERT INTO customers (first_name, last_name, email, username, password, address, subscription)" +
+                    " VALUES (?,?,?,?,?,?,?)";
 
             preparedStatement = database.connection.prepareStatement(insertValuesQuery);
             preparedStatement.setString(1, inputName);
@@ -36,20 +36,21 @@ class Customer extends Register{
             preparedStatement.setString(4, inputUsername);
             preparedStatement.setString(5, inputPassword);
             preparedStatement.setString(6, inputAddress);
-            preparedStatement.setString(7, subscription.getSubscription());
+            preparedStatement.setString(7, String.valueOf(subscription.getChoice(inputSubscription)));
 
             preparedStatement.executeUpdate();
+
 
             preparedStatement.close();
 
         } catch (SQLException e) {
             System.out.println("Error 13: "+e);
-            main.mainMenu(input, session);
+            main.mainMenu(input);
         }
 
         System.out.print("\nCustomer registered. Returning to the main menu");
 
-        main.mainMenu(input, session);
+        main.mainMenu(input);
     }
 
     protected String getCustomer(Input input, Database database) {
@@ -75,7 +76,7 @@ class Customer extends Register{
 
                 if (!resultSet.next()) {
                     System.out.print("\nUsername does not exist.");
-                    main.mainMenu(input, session);
+                    main.mainMenu(input);
                 }
             } catch (SQLException e) {
                 System.out.println("Error 16: "+ e);
@@ -115,7 +116,7 @@ class Customer extends Register{
             resultSet.close();
         } catch (SQLException e) {
             System.out.println("Error 14: "+e);
-            main.mainMenu(input, session);
+           main.mainMenu(input);
         }
 
         return customerUsername;
@@ -123,7 +124,7 @@ class Customer extends Register{
 
     protected  void searchCustomer(Input input, Database database) {
         getCustomer(input, database);
-        main.mainMenu(input, session);
+       main.mainMenu(input);
 
     }
 
@@ -163,15 +164,15 @@ class Customer extends Register{
                             if (i > 0) {
                                 System.out.println("\n" + field.substring(0, 1).toUpperCase() + field.substring(1) + " updated successfully.");
                                 preparedStatement.close();
-                                main.mainMenu(input, session);
+                               main.mainMenu(input);
                             } else {
                                 System.out.println("An error occurred");
                                 input.close();
-                                main.mainMenu(input, session);
+                               main.mainMenu(input);
                             }
                             preparedStatement.close();
                             database.resultSet.close();
-                            main.mainMenu(input, session);
+                            main.mainMenu(input);
                         } catch (SQLException e) {
                             System.out.println("Error 13: Can't perform this task due to error " + e);
                         }
@@ -192,15 +193,15 @@ class Customer extends Register{
                             if (i > 0) {
                                 System.out.println("\n" + field.substring(0, 1).toUpperCase() + field.substring(1) + " updated successfully.");
                                 preparedStatement.close();
-                                main.mainMenu(input, session);
+                               main.mainMenu(input);
                             } else {
                                 System.out.println("An error occurred");
                                 input.close();
-                                main.mainMenu(input, session);
+                               main.mainMenu(input);
                             }
                             preparedStatement.close();
                             database.resultSet.close();
-                            main.mainMenu(input, session);
+                           main.mainMenu(input);
                         } catch (SQLException e) {
                             System.out.println("Error 14: Can't perform this task due to error " + e);
                         }
@@ -221,15 +222,15 @@ class Customer extends Register{
                             if (i > 0) {
                                 System.out.println("\n" + field.substring(0, 1).toUpperCase() + field.substring(1) + " updated successfully.");
                                 preparedStatement.close();
-                                main.mainMenu(input, session);
+                               main.mainMenu(input);
                             } else {
                                 System.out.println("An error occurred");
                                 input.close();
-                                main.mainMenu(input, session);
+                               main.mainMenu(input);
                             }
                             preparedStatement.close();
                             database.resultSet.close();
-                            main.mainMenu(input, session);
+                           main.mainMenu(input);
                         } catch (SQLException e) {
                             System.out.println("Error 15: Can't perform this task due to error " + e);
                         }
@@ -250,15 +251,15 @@ class Customer extends Register{
                             if (i > 0) {
                                 System.out.println("\n" + field.substring(0, 1).toUpperCase() + field.substring(1) + " updated successfully.");
                                 preparedStatement.close();
-                                main.mainMenu(input, session);
+                               main.mainMenu(input);
                             } else {
                                 System.out.println("An error occurred");
                                 input.close();
-                                main.mainMenu(input, session);
+                               main.mainMenu(input);
                             }
                             preparedStatement.close();
                             database.resultSet.close();
-                            main.mainMenu(input, session);
+                           main.mainMenu(input);
                         } catch (SQLException e) {
                             System.out.println("Error 16: Can't perform this task due to error " + e);
                         }
@@ -299,15 +300,15 @@ class Customer extends Register{
                             if (i > 0) {
                                 System.out.println("\n" + field.substring(0, 1).toUpperCase() + field.substring(1) + " updated successfully.");
                                 preparedStatement.close();
-                                main.mainMenu(input, session);
+                               main.mainMenu(input);
                             } else {
                                 System.out.println("An error occurred");
                                 input.close();
-                                main.mainMenu(input, session);
+                               main.mainMenu(input);
                             }
                             preparedStatement.close();
                             database.resultSet.close();
-                            main.mainMenu(input, session);
+                           main.mainMenu(input);
                         } catch (SQLException e) {
                             System.out.println("Error 18: Can't perform this task due to error " + e);
                         }
@@ -328,26 +329,23 @@ class Customer extends Register{
                             if (i > 0) {
                                 System.out.println("\n" + field.substring(0, 1).toUpperCase() + field.substring(1) + " updated successfully.");
                                 preparedStatement.close();
-                                main.mainMenu(input, session);
+                               main.mainMenu(input);
                             } else {
                                 System.out.println("An error occurred");
                                 input.close();
-                                main.mainMenu(input, session);
+                               main.mainMenu(input);
                             }
                             preparedStatement.close();
                             database.resultSet.close();
-                            main.mainMenu(input, session);
+                           main.mainMenu(input);
                         } catch (SQLException e) {
                             System.out.println("Error 19: Can't perform this task due to error " + e);
                         }
                         break;
 
                     case 7:
-                        System.out.println(customerUsername);
                         field = "subscription";
-
                         Subscription subscription = Subscription.getChoice(inputSubscription);
-
                         registerCustomerSubscription(input, database);
 
                         try {
@@ -355,7 +353,7 @@ class Customer extends Register{
                             String query = "UPDATE customers SET subscription = ? WHERE username = ?)";
 
                             preparedStatement = database.connection.prepareStatement(query);
-                            preparedStatement.setString(1, subscription.getSubscription());
+                            preparedStatement.setString(1, String.valueOf(Subscription.getChoice(inputSubscription)));
                             preparedStatement.setString(2, customerUsername);
 
                             preparedStatement.executeUpdate(query);
@@ -364,12 +362,17 @@ class Customer extends Register{
 
                         } catch (SQLException e) {
                             System.out.println("Error 21: " + e);
-                            main.mainMenu(input, session);
+                           main.mainMenu(input);
                         }
 
                         System.out.println("\n" + field.substring(0, 1).toUpperCase() + field.substring(1) + " updated successfully.");
 
-                        main.mainMenu(input, session);
+                       main.mainMenu(input);
+                    case 8:
+                        main.mainMenu(input);
+                    default:
+                        System.out.println("\"" +choice+"\"" + " is not one of the options.");
+                        updateCustomer(input, database);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -8,8 +8,6 @@ package ultravision;
  * Lecturer: Amilcar Aponte
  */
 
-import java.util.Arrays;
-
 /*
 This class is meant to hold all subscriptions. Since there are only four,
 using an enum for its static characteristic was a good choice for what I wanted implement.
@@ -17,29 +15,19 @@ using an enum for its static characteristic was a good choice for what I wanted 
 public enum Subscription {
     /*for each enum element it holds an integer with a string value,
     corresponding to a type of subscription.*/
-    ML(1, "music lover"),
-    VL(2, "video lover"),
-    TV(3, "tv lover"),
-    PR(4, "premium");
+    ML,
+    VL,
+    TV,
+    PR;
 
-    private int choice;
-    private String subscription;
-
-    Subscription(int choice, String subscription) {
-        this.choice = choice;
-        this.subscription = subscription;
-    }
-/*
-this methods below are used to "parse" the integer values from the "
-"registerCustomerSubscription" method, get from the switch "subscription" input.
+/*this method gets the user input(int) from "Customer" and returns the equivalent integer,
+so that when the user chooses an integer it will record one of the correspondents enum elements instead.
  */
-    public static Subscription getChoice(int choice) {
-        return Arrays.stream(values()).findFirst().get();
+
+static Subscription getChoice(int choice) {
+        return values()[choice % 4];
     }
-//this method prints the equivalent choice
-    public String getSubscription() {
-        return subscription;
-    }
+
 }
 
 

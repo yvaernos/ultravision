@@ -11,6 +11,7 @@ package ultravision;
 import ultravision.interfaces.Sessionable;
 
 import java.sql.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -29,8 +30,6 @@ abstract class Register implements Sessionable {
     Pattern emailPattern = Pattern.compile("^(.+)@(.+)$");
     Pattern usernamePattern = Pattern.compile("^[a-z]{3,8}+$");
     Pattern passwordPattern = Pattern.compile("^[A-Za-z0-9]{3,8}+$");
-    Pattern addressPattern = Pattern.compile("^[A-Za-z0-9\\s*,],[A-Za-z0-9\\s*]$");
-
 
     protected String inputName = "", inputSurname = "", inputAddress = "",
             inputEmail = "", inputUsername = "", inputPassword = "",
@@ -144,50 +143,58 @@ abstract class Register implements Sessionable {
     }
     /*
     This method reuses the "registerUser" method to register customers, since the fields are
-    the same. It adds two more fields: Address and Subscription, respectively.
+    the same and adds two more fields: Address and Subscription, respectively.
      */
 
-    public void registerCustomerAddress(Input input, Database database) {
+    public void registerCustomerAddress(Input input, Database database){
+
         connectToDatabase(input, database);
 
-        System.out.print("\nAddress:\n> ");
-        inputAddress = input.getString();
+        try {
+            System.out.print("\nAddress:\n> ");
+            inputAddress = input.getString();
+        } catch (InputMismatchException e) {
+           System.out.println("\nWrong input. Please try again.\nAddress:\n> ");
+            inputAddress = input.getString();
+        }
 
         registerCustomerSubscription(input,database);
     }
+
+    //this method
     public void registerCustomerSubscription(Input input, Database database) {
+
         database.getConnection();
 
         System.out.print("\nPlease, please choose a type of Subscription:" +
-                "\n1) Press 1 for " + choiceOne+
-                "\n2) Press 2 for " + choiceTwo+
-                "\n3) Press 3 for " + choiceThree+
-                "\n4) Press 4 for " + choiceFour+
+                "\n0) Press 0 for " + choiceOne+
+                "\n1) Press 1 for " + choiceTwo+
+                "\n2) Press 2 for " + choiceThree+
+                "\n3) Press 3 for " + choiceFour+
                 "\n>  ");
 
+            inputSubscription = input.getInt();
+            Subscription subscription = Subscription.getChoice(inputSubscription);
 
-        inputSubscription = input.getInt();
-        Subscription subscription = Subscription.getChoice(inputSubscription);
-        switch (subscription) {
+            switch (subscription) {
 
-            case ML:
-                System.out.println(choiceOne);
-                break;
-            case VL:
-                System.out.println(choiceTwo);
-                break;
-            case TV:
-                System.out.println(choiceThree);
-                break;
-            case PR:
-                System.out.println(choiceFour);
-                break;
+                case ML:
+                    System.out.println(choiceOne);
+                    break;
+                case VL:
+                    System.out.println(choiceTwo);
+                    break;
+                case TV:
+                    System.out.println(choiceThree);
+                    break;
+                case PR:
+                    System.out.println(choiceFour);
+                    break;
 
-            default:
-                System.out.println("\"" + inputSubscription + "\"" + " is not one of the options.");
+                default:
+                    System.out.println("\"" + inputSubscription + "\"" + " is not one of the options.");
 
 
         }
-
     }
   }

@@ -66,11 +66,10 @@ public class Session implements Sessionable {
                     System.out.println("\nHi, " + nameToUppercase + ".");
 
                     Main main = new Main();
-                    Session session = new Session();
 
                     database.statement.close();
                     database.connection.close();
-                    main.mainMenu(input, session);
+                    main.mainMenu(input);
                 }
             } else {
 

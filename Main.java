@@ -109,19 +109,21 @@ public class Main  {
     After the existent user has logged in they can access the main menu,
     where they can view and manage customers and titles.
      */
-    protected void mainMenu(Input input, Session session) {
+    protected void mainMenu(Input input) {
 
         Database database = new Database();
         Customer customer = new Customer();
+        Titles titles = new Titles();
+        Transactions transactions = new Transactions();
 
         String choiceOne = "Add new Customers.",
                choiceTwo = "Update Customers details",
                choiceThree = "Search Customers.",
                choiceFour = "Customer Rents.",
                choiceFive = "Customers Returns.",
-               choiceSix = "Add new Subscription.",
-               choiceSeven = "Search Subscription.",
-               choiceEight = "Manage Rented Subscription.",
+               choiceSix = "Add new Titles.",
+               choiceSeven = "Search Titles.",
+               choiceEight = "Manage Rented Titles.",
                choiceNine = "Log off";
 
         System.out.print("\nPlease, choose one of the options below:" +
@@ -159,28 +161,28 @@ public class Main  {
 
                     case 4:
                         System.out.println(choiceFour);
-
+                        transactions.getRent();
                         input.close();
                         break;
 
                     case 5:
                         System.out.println(choiceFive);
-
+                        transactions.returnTitle();
                         input.close();
                         break;
                     case 6:
                         System.out.println(choiceSix);
-
+                        titles.addTitle();
                         input.close();
                         break;
                     case 7:
                         System.out.println(choiceSeven);
-
+                        titles.searchTitle();
                         input.close();
                         break;
                     case 8:
                         System.out.println(choiceEight);
-
+                        transactions.rentLogs();
                         input.close();
                         break;
                     case 9:
@@ -189,13 +191,13 @@ public class Main  {
                         System.exit(0);
                     default:
                         System.out.println("\"" +userChoice+"\"" + " is not one of the options.");
-                        mainMenu(input, session);
+                        mainMenu(input);
                 }
             }catch (InputMismatchException | NumberFormatException ex){
                 System.out.println("Error 2: "+"\"" +input.getString()+"\"" + " is not a valid number.");
-                mainMenu(input, session);
+                mainMenu(input);
             }
-        } mainMenu(input, session);
+        } mainMenu(input);
 
 
     }
